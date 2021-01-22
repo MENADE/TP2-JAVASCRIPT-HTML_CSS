@@ -1,0 +1,72 @@
+@charset "utf-8";
+/*CSS Document */
+
+.margeinput{
+
+    margin-bottom: 0px;
+}
+
+        label {
+            display: inline-block;
+            float: left;
+            clear: left;
+            width: 150px;
+        }
+
+        input {
+            display: inline-block;
+            float: left;
+        }
+
+        div {
+
+            text-align: left;
+            border-style: double;
+            background-color: lightcyan;
+
+            width: 700px;
+            padding: 10px;
+            display: inline-block;
+            float: left;
+            clear: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-size: 16px;
+            width: 730px;
+            height: 330px;
+            border-style: double;
+        }
+
+        td {
+            width: 60px;
+            border-style: double;
+            background-color: lightcyan;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            height: 40px;
+            font-weight: bold;
+            border-style: double;
+        }
+
+        tr {
+            border-style: dotted;
+        }
+        .milieu {
+            vertical-align: center;
+            text-align: center;
+           
+        }
+
+        .special {
+            text-align: left;
+            border-style: none;
+            background-color: white;
+            width: 280px;
+            padding-left: 20px;
+            display: inline-block;
+            float: left;
+            clear: left;
+
+        }
+    

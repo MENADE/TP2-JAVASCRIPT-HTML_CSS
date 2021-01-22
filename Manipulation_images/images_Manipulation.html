@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Manipulation images</title>
+	<link rel="stylesheet" type="text/css" href="styles/style.css"/>
+
+
+</head>
+
+<body>
+
+	<img src="images/4.jpg" id="images" class="taille_petit"  alt=""><br>
+
+
+	<form id="textform">
+		<input type="radio" name="taille" id="txtpetit" checked='true'> <strong>Petit </strong> <br>
+		<input type="radio" name="taille" id="txtmoyen"><strong> Moyen</strong><br>
+		<input type="radio" name="taille" id="txtgrand"><strong> Grand</strong><br>
+	</form>
+	<br>
+	<button id="txtbord"> Ajouter bordures </button>
+
+	<script>
+
+		//1-1- images
+		var image1 = document.getElementById("images");
+		var liste = ["images/4.jpg", "images/5.jpg", "images/6.jpg", "images/7.jpg"];
+		var imageindex = 1;
+
+		image1.addEventListener("click", function () {
+
+			image1.setAttribute("src", liste[imageindex]);
+			imageindex++;
+
+			if (imageindex > liste.length - 1) {
+				imageindex = 0;
+			}
+		});
+		//1-2- boutons radio : petit, moyen et grand
+
+		var bpetit = document.getElementById('txtpetit');
+		var bmoyen = document.getElementById('txtmoyen');
+		var bgrand = document.getElementById('txtgrand');
+		console.log(bpetit);
+		var inputd = document.getElementsByName('taille');
+
+
+
+		bpetit.addEventListener("change", function () {
+
+			if (bpetit.checked == true) { document.getElementById('images').className = "taille_petit" }
+
+		});
+
+		bmoyen.addEventListener("change", function () {
+
+			if (bmoyen.checked == true) { document.getElementById('images').className = "taille_moyen" }
+
+		});
+
+		bgrand.addEventListener("change", function () {
+			if (bgrand.checked == true) { document.getElementById('images').className = "taille_grand" }
+
+		});
+
+
+
+
+		var buttnbord = document.getElementById('txtbord');
+		var border_state = document.getElementById('images').style;
+		console.log(border_state);
+
+		buttnbord.addEventListener('click', function adda() {
+			if (border_state.border == "") {
+				border_state.border = "10px solid red";
+				buttnbord.textContent = "Enlever bordures";
+
+			}
+			else {
+				border_state.border = "";
+				buttnbord.textContent = "Ajouter bordures";
+			}
+
+		});
+
+
+
+
+	</script>
+
+</body>
+
+</html>

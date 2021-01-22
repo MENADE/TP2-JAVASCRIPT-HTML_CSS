@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Formulaire facture d'achat </title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    
+</head>
+
+<body >
+    
+<!--I) PARTIE HTML--------------------------------------------------------------------------------------------------------------------------------------------------------  -->
+
+    <!-- -renseignemnt sur l'acheteur -->
+
+
+    <div id="divinfos" style="height: 160px;">
+        <p style="margin-left: 150px; font-size: 20px; margin-top: 5px;"> <strong>Facture achat ordinateur portable </strong> </p>
+
+   <!--   Debut de la form  -->
+
+        <form method="get" id="formulaire">
+            <label>Nom complet</label>
+            <input id="textnom" type="text" placeholder="ex.Menade"> </input>
+            <label>Code postal</label>
+            <input id="textcodepostal" type="text" placeholder="Z1C1W9"> </input>
+            <label>Courriel</label>
+            <input id="textemail" type="text"> </input>
+            <label>Confirmez courriel</label>
+            <input id="textconfirm_email" type="text"> </input>
+            <p id="texterreur" style="font-size: 15px; float: left; clear: both; color: red;"> </p>
+
+    </div>
+
+    <!-- renseignemnt sur les produits  -->
+
+    <div style="height: 215px;">
+        <p style="margin-left: 150px; font-size: 20px; margin-top: 0px; margin-bottom: 1px;"> <strong>Quelle marque voulez vous ? </strong> </p>
+        <select id="textmachine_type" >
+            <option value="dell" id="id_dell"> Dell -799,99$"</option>
+            <option value="asus" id="id_asus"> Asus -699,99$</option>
+            <option value="appel" id="id_appel">Appel -999,99$</option>
+            <option value="acer" id="id_acer">Acer -599,99$</option>
+        </select><br />
+
+        <p style=" font-size: 16px;"> <strong>Cochez les options que vous voulez ajouter ? </strong> </p> 
+
+        <input id="input_ecran" type="checkbox" name="vehicle1" value="Bike" class="margeinput">
+        <p for="vehicle1"> Écran -300$</p>
+        <input type="checkbox" id="input_garantie" name="vehicle2" value="Car" class="margeinput">
+        <p for="vehicle2"> Garantie 2 ans -200$</p>
+        <input type="checkbox" id="input_imprimante" name="vehicle3" value="Boat" class="margeinput">
+        <p for="vehicle3"> Imprimante -100$</p>
+        <input type="checkbox" id="input_souris" name="vehicle4" value="plane" class="margeinput">
+        <p for="vehicle3"> Souris sans fil -40$</p>
+
+    </div>
+    <div >
+        <input id="bncommander" type="submit" value="Commander">
+        <em style="margin-left: 10px; margin-right: 10px; float: left; "> ou </em>
+        <input id="textrecommencer" type="reset" value="Recommencer">
+
+        </form>
+    </div>
+    <!--   Fin de la form  -->
+
+    <div class="special" style="height: 65px;  margin-bottom: 1px; margin-top: 0px; " >
+        <p style="font-weight: bold; font-size: 20px; height: 0px; margin-bottom: 5px;"> Facture</p>
+        <p id="textmessage_envoie" style="color: red; margin-top: 30px; "> ----En attente de l'envoie de formulaire----</p>
+    </div>
+
+    <!-- Debut contenu de tableau-->
+
+    <table id='texttable' style="float: left; clear:left; " class="milieu">
+        <caption style="color: black; font-weight: bold; font-size: 20px; "> Facture achat ordinateur portable </caption>
+        <tr>
+            <th id="textmessageID" colspan="3"
+                style="height: 50px; color:red;  background-color:lightcyan ; font-size: 8;  ">
+            </th>
+        </tr>
+        <tr>
+            <td>Machine </td>
+            <td id="textmarque"> </td>
+            <td id="textprixmachine"> </td>
+        </tr>
+
+        <tr>
+            <td colspan="3" id="textoption" style="text-align: left;"> Options</td>
+        </tr>
+        <tr>
+            <td id="textcompteurecran"> </td>
+            <td> Ecran</td>
+            <td id="textprixecran"> </td>
+        </tr>
+        <tr>
+            <td id="textcompteurgarantie"> </td>
+            <td> Garentie</td>
+            <td id="textprixgarantie"> </td>
+        </tr>
+        <tr>
+            <td id="textcompteurimprimante"> </td>
+            <td> imprimante</td>
+            <td id="textpriximprimante"> </td>
+        </tr>
+        <tr>
+            <td id="textcompteursouris"> </td>
+            <td> souris </td>
+            <td id="textprixsouris"> </td>
+        </tr>
+        <tr>
+            <td colspan="2"> Total</td>
+            <td id="texttotal"> </td>
+        </tr>
+    </table>
+
+        <!-- Fin contenu de tableau-->
+
+
+ <!--II) PARTIE JAVASCRIPT-JQUERY--------------------------------------------------------------------------------------------------------------------------------------------------------  -->
+
+
+        <!-- LIEN JQUERY   -->
+    <script src="scripts/jquery.js"></script>
+
+    <!--1 DEBUT CODE JAVASCRIPT-JQUERY   -->
+    <script>
+
+
+        //1-1 FOCUS : UN FOND ORANGE S'AFFICHE CHAQUE FOIS ON CLIQUE SUR UN CHAMP DE SAISIE (INPUT TYPE-TEXT)-- --jQeury--
+
+ //---DEBUT DE FUNCTION() JQUERY QUI PERMET DE TÉLÉCHARGÉ LE FICHIER HTML AVANT EXÉCUTÉ LES FONCTION JAVASCRIPT--------------------------------------------------------------------- 
+        
+        $(function () {
+            var lefous;
+
+            $('input').focus(function () {
+                lefous = '#' + $(this).attr('id');
+                $(lefous).css('background-color', '#FFA500');
+            });
+            $('input').blur(function () {
+                lefous = '#' + $(this).attr('id');
+                $(lefous).css('background-color', '#fff');
+            });
+
+
+            //1-2 VERIFICARION EMAILS : EMAIL ET SON CONFIRMATION DOIVENT ETRE IDENTIQUE --jQeury--
+            $('#textconfirm_email').change(function () {
+
+                console.log($('#textemail').val());
+                console.log($(this).val());
+
+                if ($(this).val() != $('#textemail').val()) {
+                    $('#texterreur').text('Les deux adresses email ne correspondent pas');
+                }
+                else {
+                    $('#texterreur').text('');                }
+            });
+
+            //1-3 VERIFICARION ET REMPLISSAGE DE TOUS LES CHAMPS : --jQeury--
+
+            $('#textmachine_type').val('dell');
+
+
+//---DEBUT D'EXÉCUTION FUNCTION() SUBMIT (INPUT-TYPE SUBMET) QUI RENVOIE LA VALEUR D'ATTIBUT DU BUTTON ENVOIE --------------------------------------------------------------------- 
+
+
+            $('#formulaire').submit(function () {
+                event.preventDefault();
+
+                var total = parseInt('0.00$');
+
+                if (($('#textnom').val() == '') || ($('#textcodepostal').val() == '') || ($('#textemail').val() == '') || ($('#textconfirm_email').val() == '')) {
+                    $('#texterreur').text('Veuillez remplir tous les champs');
+                }
+                else {
+                    document.getElementById('textmessageID').innerHTML = "";
+
+
+                   //1-4 REMPLIR L'ENTETE DE LA FACTURE AVEC LE NOM ET L'EMAIL DE L'ACHTEUR
+                    $('#textmessageID').append('Merci de faire affaire avec nous ' + $('#textnom').val() + ', votre facture sera envoyée à ' + $('#textcodepostal').val() + ' et un courriel de  confirmation à ' + $('#textemail').val());
+
+
+                    alert('Formulaire envoyé!')
+                    $('#textmessage_envoie').text('Voici votre facture');
+
+                   //1-5 INITALISATION DE LA TABLE A CHAQUE FOIS ON VEUT RECOMMENCER LA SAISIE --INPUT -- TYPE-RESET---
+
+                    total = 0.00;
+                    var nombrearticle = 0;
+                    document.getElementById('texttotal').innerHTML = "";
+
+                    document.getElementById('textmarque').innerHTML = "";
+                    document.getElementById('textprixmachine').innerHTML = "";
+                    document.getElementById('textprixecran').innerHTML = "";
+                    document.getElementById('textcompteurecran').innerHTML = "";
+
+                    document.getElementById('textprixgarantie').innerHTML = "";
+                    document.getElementById('textcompteurgarantie').innerHTML = "";
+
+                    document.getElementById('textpriximprimante').innerHTML = "";
+                    document.getElementById('textcompteurimprimante').innerHTML = "";
+
+                    document.getElementById('textprixsouris').innerHTML = "";
+                    document.getElementById('textcompteursouris').innerHTML = "";
+
+
+                         $('table').css('border-style', '')
+                            $('td').css('color', '')
+                            $('th').css('background-color', '')
+                            $('td').css('border', '')
+                            $('td').css('font-family', '')
+                            $('td').css('background-color', '')
+                            $('td').css('font-weight', '')
+
+                    //1-6--METTRE DANS LE TABLEAU LES INPUTS QUE L'UTILISATEUR SAISIES---
+
+
+                    $('#textmarque').append($('select#textmachine_type').val());
+
+                    var marque = $('select#textmachine_type').val();
+
+                    if ($('select#textmachine_type').val() == 'dell') {
+                        $('#textprixmachine').append("799.99$");
+                        total = total + 799.99;
+                    }
+
+                    if ($('select#textmachine_type').val() == 'asus') {
+                        $('#textprixmachine').append("699.99$");
+                        total = total + 699.99;
+                    }
+
+                    if ($('select#textmachine_type').val() == 'appel') {
+                        $('#textprixmachine').append("999.99$");
+                        total = total + 999.99;
+                    }
+                    if ($('select#textmachine_type').val() == 'acer') {
+                        $('#textprixmachine').append("599.99$");
+                        total = total + 599.99;
+
+                    }
+
+
+                    //1-7 AJOUTER OPTION ECRAN : --jQeury--
+
+                    if ($('#input_ecran').is(':checked')) {
+
+                        $('#textprixecran').append('300.00$');
+                        total = total + 300.00;
+                        nombrearticle += 1;
+                        $('#textcompteurecran').append(nombrearticle);
+                    }
+
+                    //1-8 AJOUTER OPTION GARANTIE : --jQeury--
+
+                    if ($('#input_garantie').is(':checked')) {
+
+                        $('#textprixgarantie').append('200.00$');
+                        total = total + 200.00;
+                        nombrearticle += 1;
+                        $('#textcompteurgarantie').append(nombrearticle);
+
+                    }
+
+                    //1-9 AJOUTER OPTION IMPRIMANTE : --jQeury--
+
+                    if ($('#input_imprimante').is(':checked')) {
+
+                        $('#textpriximprimante').append('100.00$');
+                        total = total + 100.00;
+                        nombrearticle += 1;
+                        $('#textcompteurimprimante').append(nombrearticle);
+
+                    }
+
+                    //1-10 AJOUTER OPTION SOURIS : --jQeury--
+                    if ($('#input_souris').is(':checked')) {
+
+                        $('#textprixsouris').append('40.00$');
+                        total = total + 40.00;
+                        nombrearticle += 1;
+                        $('#textcompteursouris').append(nombrearticle);
+
+
+                    }
+                     //1-11 AFFICHAGE DU TOTAL D'ACHAT : --jQeury--
+
+                    $('#texttotal').append(total).append('$');
+
+                    //3-9 AFFICHAGE DE DEUX FACTURES DIFFERENTES AVEC (AU MOINS QUATRE REGLES CSS)--jQeury--
+
+                   
+                        if (total > 1000) {
+                            $('table').css('border-style', 'dashed')
+                            $('td').css('color', 'blue')
+                            $('th').css('background-color', 'yellow')
+                            $('td').css('border', 'green 4px dotted')
+                            $('td').css('font-family', 'Arial Helvetica Neue Helvetica sans-serif')
+                            $('td').css('background-color', 'rgba(172, 255, 47, 0.726')
+                            $('td').css('font-weight', 'bold')
+                        }
+                }
+
+            });
+
+            //---FIN D'EXÉCUTION FUNCTION() SUBMIT (INPUT-TYPE SUBMET) QUI RENVOIE LA VALEUR D'ATTIBUT DU BUTTON ENVOIE --------------------------------------------------------------------- 
+
+
+            //1-12 AFFICHAGE ALERT QUAND OPTION ECRAN EST COCHÉE OU DÉCOCHÉE : --jQeury--
+
+            $('#input_ecran').on("click", function () {
+
+                if ($('#input_ecran').is(':checked')) {
+                    alert("Vous ne regrettez pas!");
+
+                }
+                else {
+                    alert("S'il vous plait prenez le !");
+                }
+            });
+        });
+
+   //---FIN DE FUNCTION() JQUERY QUI PERMET DE TÉLÉCHARGÉ LE FICHIER HTML AVANT EXÉCUTÉ LES FONCTION JAVASCRIPT--------------------------------------------------------------------- 
+
+    </script>
+
+</body>
+
+</html>
